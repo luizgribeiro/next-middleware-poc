@@ -10,7 +10,7 @@ export function middleware(req: NextRequest) {
     `hasToken: ${token ? true : false} | pathName: ${req.nextUrl.pathname}`
   );
 
-  if (token) {
+  if (token || req.nextUrl.pathname.match(/login/)) {
     return NextResponse.next();
   } else {
     console.log("REDIRECT");
