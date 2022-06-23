@@ -3,6 +3,22 @@ const getAuthToken = (cookies: any) => {
   return cookies.get("Authorization");
 };
 
+const isNoAuthResource = (pathName: string) => {
+  const isPageRequest = /pages/.test(pathName);
+
+  if (!isPageRequest) {
+    return true;
+  } else {
+    const noAuthPagesPattern = [/pages\/login.js$/, /pages\/_app.js$/];
+
+    const matchesNoAuthPattern = noAuthPagesPattern.find((pattern) =>
+      pattern.test(pathName)
+    );
+
+    return matchesNoAuthPattern ? true : false;
+  }
+};
+
 export function middleware(req: NextRequest) {
   const token = getAuthToken(req.cookies);
 
@@ -10,7 +26,7 @@ export function middleware(req: NextRequest) {
     `hasToken: ${token ? true : false} | pathName: ${req.nextUrl.pathname}`
   );
 
-  if (token || req.nextUrl.pathname.match(/login/)) {
+  if (token || isNoAuthResource(req.nextUrl.pathname)) {
     return NextResponse.next();
   } else {
     console.log("REDIRECT");
