@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
-const Home: NextPage = () => {
+const Login: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
@@ -13,7 +13,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>This is a protected page</h1>
+        <h1 className={styles.title}>This is the login page</h1>
       </main>
 
       <footer className={styles.footer}></footer>
@@ -21,4 +21,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Login;
